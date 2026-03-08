@@ -3,59 +3,40 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Cozy Desk</title>
+  <title>My Real Desk</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+  <!-- Wall (background) -->
   <div class="wall"></div>
+
+  <!-- Table: photo background from your image 1 -->
   <div class="table"></div>
-  
-  <!-- Sticky Notes Stack (behind laptop) -->
-  <div class="sticky-stack" id="stickyStack"></div>
-  
-  <!-- Pink Laptop centered on table -->
-  <div class="laptop closed" id="laptop">
-    <!-- SVG pink MacBook, with Apple logo on lid -->
-    <div class="laptop-lid lid-svg">
-      <svg width="350" height="48" viewBox="0 0 350 48">
-        <rect x="0" y="0" width="350" height="48" rx="13" fill="#ffc1da" filter="url(#lidShadow)" />
-        <!-- Apple logo group, centered -->
-        <g>
-          <ellipse cx="175" cy="24" rx="16" ry="18" fill="#fff" opacity=".80"/>
-          <ellipse cx="175" cy="17" rx="3.5" ry="5" fill="#fff" opacity=".80"/>
-        </g>
-        <defs>
-          <filter id="lidShadow" x="0" y="0" width="380" height="60">
-            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#b4726788"/>
-          </filter>
-        </defs>
-      </svg>
-    </div>
-    <div class="laptop-base">
-      <!-- Screen appears here when open -->
-      <div class="screen" id="screen">
-        <div class="clock">
-          <span id="clockTime"></span>
-          <span id="clockDate"></span>
-        </div>
-      </div>
-      <svg class="base-svg" width="350" height="60" viewBox="0 0 350 60">
-        <!-- Gradient base -->
-        <rect x="0" y="0" width="350" height="60" rx="16" fill="url(#baseGradient)" />
-        <defs>
-          <linearGradient id="baseGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#ffd1ea"/>
-            <stop offset="100%" stop-color="#ffbadb"/>
-          </linearGradient>
-        </defs>
-      </svg>
+
+  <!-- Sticky Note Stack - always visible -->
+  <div class="sticky-stack" id="stickyStack">
+    <img src="images/sticky-stack.png" alt="Sticky note pad" />
+    <button id="pullNoteBtn" title="Pull a note">+</button>
+  </div>
+
+  <!-- Main Laptop (centered) -->
+  <div class="laptop-wrap">
+    <!-- Closed -->
+    <img class="laptop-closed" id="laptopClosed" src="images/laptop-closed.png" alt="Closed MacBook" />
+    <!-- Open (overlay, hidden by default) -->
+    <img class="laptop-open" id="laptopOpen" src="images/laptop-open.png" alt="Open MacBook" />
+  </div>
+
+  <!-- Single note editor (when pulled from stack) -->
+  <div class="note-editor" id="noteEditor">
+    <textarea id="editorInput" maxlength="180"></textarea>
+    <div class="editor-actions">
+      <button id="stickBtn">Stick to wall</button>
+      <button id="cancelBtn">Cancel</button>
     </div>
   </div>
 
-  <!-- Desktop (on table) notes area -->
-  <div class="desk-notes" id="deskNotes"></div>
-
-  <!-- Wall notes area (above table) -->
+  <!-- Wall post-its go here -->
   <div class="wall-notes" id="wallNotes"></div>
 
   <script src="script.js"></script>
