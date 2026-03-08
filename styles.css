@@ -1,0 +1,280 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #ffe0ef; /* pastel pink wall */
+  min-height: 100vh;
+}
+
+.scene {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #ffe0ef; /* pastel pink */
+}
+
+.wall {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 68vh;
+  background: #ffe0ef;
+  z-index: 1;
+}
+
+.desk {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38vh;
+  min-height: 160px;
+  max-height: 300px;
+  background: linear-gradient(0deg, #f9e6c6 90%, #efd9b4 100%);
+  border-top: 7px solid #e0b97a;
+  box-shadow: 0 -10px 25px rgba(110, 60, 0, 0.09);
+  z-index: 2;
+}
+
+.table-area {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  bottom: 7vh;
+  left: 0;
+  width: 100vw;
+  justify-content: center;
+  z-index: 5;
+  min-height: 200px;
+}
+
+.laptop {
+  position: relative;
+  width: 240px;
+  height: 120px;
+  z-index: 10;
+  margin-right: 40px;
+  transition: all 0.6s cubic-bezier(.8,.3,.3,1.2);
+  cursor: pointer;
+  transform-origin: bottom center;
+}
+
+.laptop.closed .laptop-lid {
+  height: 60px;
+  transform: rotateX(0deg) translateY(0px);
+  transition: all 0.55s cubic-bezier(.8,.3,.3,1.8);
+}
+
+.laptop.open {
+  /* Lid open: lift/tilt lid up */
+  transform: scale(1.05) translateY(-15px);
+}
+
+.laptop.open .laptop-lid {
+  height: 15px;
+  transform: rotateX(-90deg) translateY(-53px) scaleY(0.1);
+  transition: all 0.6s cubic-bezier(.8,.3,.3,1.4);
+  opacity: 0.3;
+}
+
+.laptop-base {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  background: linear-gradient(0deg, #ffbddb 80%, #fb8ebf 100%);
+  border-radius: 0 0 15px 15px / 0 0 30px 30px;
+  box-shadow: 0 5px 25px #e858a876, 0 6px 8px 0 #db4c8744;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laptop-lid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  height: 60px;
+  background: linear-gradient(180deg, #ffbddb 73%, #fb8ebf 99%);
+  border-radius: 19px 19px 7px 7px / 45px 56px 7px 7px;
+  box-shadow: 0 1px 9px #ea6aa4A9, 0 1px 2px #e858a898;
+  z-index: 3;
+  transition: all 0.56s cubic-bezier(.8,.33,.22,1.19);
+}
+
+.apple-logo {
+  width: 31px;
+  height: 36px;
+  background: radial-gradient(ellipse at 12px 12px, #fff4f8 79%, #ffe0ef 100%);
+  border-radius: 49% 57% 59% 58% / 52% 38% 65% 61%;
+  position: relative;
+  margin-left: 0;
+  margin-top: 0;
+  box-shadow: 0 0 8px 2px #fff3;
+  z-index: 4;
+}
+.apple-logo::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: -9px;
+  width: 7px;
+  height: 9px;
+  border-radius: 70% 100% 47% 70%;
+  background: #fff;
+  transform: rotate(-10deg);
+}
+
+.stickies {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  z-index: 15;
+}
+
+.sticky-note {
+  width: 88px;
+  height: 80px;
+  background: #caf0f8;
+  border-radius: 8px 16px 24px 13px / 15px 11px 25px 13px;
+  box-shadow: 2px 9px 24px #6eb8de2c;
+  border: 2.6px solid #a7c8e1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 13px 9px 8px 13px;
+  margin-bottom: 7px;
+  font-size: 1.09rem;
+  color: #368;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  cursor: grab;
+  transition: box-shadow .15s, transform .2s;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  overflow: hidden;
+}
+
+.sticky-note .sticky-peel {
+  position: absolute;
+  top: 3px; right: 5px;
+  font-size: 1.25em;
+  background: #fef9ffbb;
+  border-radius: 25%;
+  border: 1px solid #cdf;
+  padding: 0.06em 0.16em;
+  cursor: pointer;
+  color: #93bada;
+  z-index: 3;
+  transition: background .15s;
+}
+.sticky-note .sticky-peel:hover {
+  background: #eef6ffef;
+}
+
+.sticky-note .sticky-edit {
+  position: absolute;
+  bottom: 3px; right: 6px;
+  font-size: 1em;
+  color: #6ab;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.sticky-note.editing {
+  z-index: 10;
+  box-shadow: 0 9px 38px #637edc3a, 0 2px 12px #7ccfef10;
+  transform: scale(1.12) rotate(-2deg);
+  cursor: text;
+}
+
+.sticky-note textarea {
+  width: calc(100% - 3px);
+  height: 63px;
+  font-size: 1.08rem;
+  background: #caf0f8;
+  color: #368;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  border-radius: 6px;
+  padding: 3.5px 3.5px;
+}
+
+#sticky-wall {
+  position: absolute;
+  top: 12vh;
+  left: 0;
+  width: 100vw;
+  min-height: 220px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.sticky-on-wall {
+  position: absolute;
+  background: #caf0f8;
+  border-radius: 10px 17px 19px 10px / 23px 14px 28px 19px;
+  box-shadow: 2px 9px 29px #bedde5b2;
+  border: 2.5px solid #aac7e3;
+  font-size: 1rem;
+  color: #368;
+  padding: 13px 9px 8px 13px;
+  min-width: 95px;
+  min-height: 82px;
+  word-break: break-word;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  user-select: none;
+  z-index: 2;
+  animation: sticky-float-in 0.35s;
+}
+
+@keyframes sticky-float-in {
+  from { transform: scale(0.67) translateY(28px); opacity: 0.45; }
+  to { transform: scale(1) translateY(0); opacity: 1;}
+}
+
+.add-sticky {
+  width: 41px;
+  height: 41px;
+  background: #caf0f8;
+  color: #5196bd;
+  font-size: 2em;
+  border: 2.6px solid #a7c8e1;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px #bedde555;
+  margin-left: 25px;
+  cursor: pointer;
+  transition: background 0.13s, color 0.16s, box-shadow 0.16s;
+  align-self: flex-end;
+}
+.add-sticky:hover {
+  background: #96e4ff;
+  color: #20606f;
+  box-shadow: 0 2px 18px #76c2d555;
+}
+
+@media (max-width: 800px) {
+  .table-area { flex-direction: column; align-items: center; }
+  .laptop { margin-right: 0; margin-bottom: 24px; }
+  .stickies { gap: 10px; }
+}
+
+@media (max-width: 600px) {
+  .laptop { width: 155px; height: 78px; }
+  .laptop-lid, .laptop-base { height: 39px; }
+  .stickies { flex-direction: column; gap: 10px; }
+  .sticky-note, .sticky-on-wall { font-size: 0.89rem; min-width: 75px;}
+  .add-sticky { width:33px; height:33px; font-size:1.6em;}
+}
