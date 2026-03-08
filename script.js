@@ -28,7 +28,6 @@ updatePomodoro();
 const laptopClosed = document.getElementById('laptopClosed');
 const laptopOpen = document.getElementById('laptopOpen');
 const laptopWrap = document.getElementById('laptopWrap');
-const pomodoroWrap = document.getElementById('pomodoroWrap');
 
 laptopClosed.addEventListener('click', ()=>{
   laptopClosed.classList.add('inactive');
@@ -90,7 +89,7 @@ closeJournal.onclick = ()=>{
 };
 showPage(currentPage);
 
-// ---- Note logic (unchanged from previous, summarized for brevity) ----
+// ---- Note logic (demo version) ----
 
 const pullNoteBtn = document.getElementById('pullNoteBtn');
 const noteEditor = document.getElementById('noteEditor');
