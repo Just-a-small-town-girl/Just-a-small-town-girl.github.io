@@ -3,23 +3,28 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Cozy Desk</title>
+  <title>My Desk</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <div class="scene">
+  <div class="room">
     <div class="wall"></div>
     <div class="desk"></div>
-    <div id="sticky-wall"></div>
+    <div class="stock-stack" id="stickyStock">
+      <!-- Sticky stock notes, built with JS for realism -->
+    </div>
     <div class="table-area">
       <div class="laptop closed" id="laptop">
-        <div class="laptop-base">
+        <div class="laptop-lid">
           <div class="apple-logo"></div>
         </div>
-        <div class="laptop-lid"></div>
+        <div class="laptop-base">
+          <div class="screen" id="laptopScreen">
+            <div class="clock" id="clock"></div>
+          </div>
+        </div>
       </div>
-      <div class="stickies" id="stickies"></div>
-      <button class="add-sticky" id="addStickyBtn" title="Add new to-do note">+</button>
+      <div class="notes-area" id="deskNotes"></div>
     </div>
   </div>
   <script src="script.js"></script>
