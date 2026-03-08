@@ -1,134 +1,52 @@
-html, body {
-  margin: 0; padding: 0; width: 100vw; height: 100%;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #ffd7ec;
-  overflow-x: hidden;
-}
-
-.wall {
-  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
-  z-index: 1;
-  background: linear-gradient(180deg, #ffd7ec 70%, #fdedd7 100%);
-}
-
-.table {
-  position: fixed; left: 0; right: 0; bottom: 0;
-  width: 100vw; height: 45vh;
-  z-index: 2;
-  background: url('images/table.jpg') center/cover no-repeat;
-  min-height: 240px; border-top: 3px solid #ceb394;
-}
-
-.laptop-wrap {
-  position: fixed; left: 50%; bottom: 27vh;
-  width: 460px; height: 220px;
-  transform: translateX(-50%);
-  z-index: 5;
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none;
-}
-.laptop-closed, .laptop-open {
-  width: 460px; height: 220px; position: absolute; left: 0; top: 0; user-select:none;
-  transition: opacity .34s;
-  pointer-events: auto;
-  box-shadow: 0 9px 23px #232;
-  border-radius: 15px 15px 20px 25px;
-}
-.laptop-closed { opacity: 1; z-index: 8; cursor: pointer; }
-.laptop-open   { opacity: 0; z-index: 9; pointer-events: none; }
-.laptop-open.active { opacity: 1; pointer-events: auto; }
-.laptop-closed.inactive { opacity: 0; pointer-events:none; }
-
-.sticky-stack {
-  position: fixed; left: 16vw; bottom: 39vh;
-  z-index: 8;
-  width:80px; height:85px;
-  display: flex; flex-direction: column; align-items: center;
-}
-.sticky-stack img {
-  width: 80px; height: 85px; display: block;
-  filter: drop-shadow(0 5px 10px #8769);
-}
-#pullNoteBtn {
-  margin-top: -40px;
-  width: 38px; height: 38px;
-  background: #fff2;
-  border-radius: 50%; font-size: 2em;
-  border: 2px solid #ffe2;
-  color: #c88524; cursor:pointer; z-index:2;
-  box-shadow: 0 5px 11px #8a1c  ;
-  transition: background .12s;
-}
-#pullNoteBtn:hover {background: #ffe6d6;}
-/* Only one note editor at once */
-.note-editor {
-  display: none;
-  position: fixed;
-  left: 52vw; bottom: 40vh;
-  z-index: 16;
-  width: 130px; background: none; outline:none;
-}
-.note-editor.active {
-  display: block;
-  animation: note-fadein .14s;
- }
-@keyframes note-fadein { from { opacity:0; transform:scale(.7);} to { opacity:1; transform:scale(1);} }
-
-.note-editor textarea {
-  width: 115px; height: 100px;
-  background: #fff768;
-  border-radius: 8px;
-  border: 2.4px solid #e1d800;
-  box-shadow: 2px 7px 14px #bda31130;
-  font-size: 1.01em; color: #232211;
-  padding: 12px 10px 5px 10px;
-  resize:none;
-  display: block;
-  margin: 0 auto 10px auto;
-}
-.editor-actions {text-align:center;}
-.editor-actions button {
-  margin: 0 6px; padding: 0.32em 1.1em;
-  background: #ffd7ec;
-  border: 2px solid #cfa9be;
-  color: #a13585; border-radius: 6px;
-  font-weight: bold; cursor:pointer;
-  font-size: 0.95em;
-}
-.editor-actions button:hover {background:#ffeffa;color:#c82095;}
-
-.wall-notes {
-  position: fixed; left: 0; top: 0; width: 100vw; height: 56vh;
-  pointer-events: none;
-  z-index: 19;
-}
-.wall-note {
-  width: 120px; height: 112px;
-  background: url('images/sticky-yellow.png') center/cover no-repeat;
-  border-radius: 7px;
-  box-shadow: 2.5px 17px 38px #33281820;
-  display: flex; align-items: flex-start;
-  color: #39360e; font-size: 1.04em;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  position: absolute; left: 160px; top: 44px;
-  cursor: move; user-select: none; outline: none; z-index: 21;
-  animation: wall-float 0.26s;
-  padding: 14px 14px 8px 16px;
-}
-@keyframes wall-float {
-  from { opacity: 0; transform: translateY(40px) scale(0.7) rotate(-11deg);}
-  to {opacity: 1; transform:translateY(0) scale(1);}
-}
-.wall-note .remove-btn {
-  position: absolute; right: 4px; bottom: 6px;
-  background: #ffd7ec; color: #b13151; border-radius:7px;
-  border: 1px solid #cfa9be; font-size: 0.88em;
-  padding: 1px 8px;
-  cursor: pointer;
-}
-@media (max-width: 900px){
-  .laptop-wrap, .laptop-closed, .laptop-open { width:290px;height:138px;}
-  .wall-note, .note-editor textarea {width:88px;height:78px;}
-  .wall-note { font-size:0.85em;}
-  .sticky-stack {left:4vw;}
+body, html { margin:0; padding:0; width:100vw; height:100%; font-family: 'Segoe UI', Arial, sans-serif; background:#ffd7ec;}
+.wall {position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:1;background:linear-gradient(180deg,#ffd7ec 70%,#fdedd7 100%);}
+.table {position:fixed;left:0;right:0;bottom:0;width:100vw;height:46vh;z-index:2;background:url('images/table.jpg') center/cover no-repeat; min-height:240px;}
+/* --- Laptop --- */
+.laptop-wrap {position:fixed;left:50%;bottom:26.5vh;width:440px;height:225px;transform:translateX(-50%) scale(1);z-index:5;transition:transform .7s cubic-bezier(.71,.13,.41,1.12);}
+.laptop-wrap.zoomed {bottom:58vh;transform:translateX(-50%) scale(1.54);z-index:15;}
+.laptop-closed, .laptop-open {width:440px;height:225px;position:absolute;left:0;top:0;user-select:none;transition:opacity .32s;}
+.laptop-closed {opacity:1;z-index:9;cursor:pointer;}
+.laptop-open {opacity:0;z-index:13;pointer-events:none;}
+.laptop-open.active {opacity:1;pointer-events:auto;}
+.laptop-closed.inactive {opacity:0;pointer-events:none;}
+#pomodoroWrap {position:absolute;left:90px;top:60px;width:258px;display:none;z-index:23;text-align:center;}
+.laptop-wrap.zoomed #pomodoroWrap {display:block;}
+.pomodoro {background:#fff9f7ec;color:#be3b57;padding:7px 24px 6px 24px;border-radius:13px 11px 13px 12px;font-size:2.2em;margin-bottom:7px;box-shadow:0 3px 11px #e9bbed35;}
+.pom-controls button {margin:0 2.5px 3px 2.5px;background:#ffd7ec;border:2px solid #cfa9be;color:#a13585;border-radius:5px;font-size:0.97em;padding:0.26em 0.76em;cursor:pointer;}
+.pom-controls button#openJournalBtn{background:#efe5ff;color:#6e40a3;font-size:0.98em;font-weight:500;}
+.pom-controls button:hover {background:#fffbe7;}
+/* -- Sticky Stack -- */
+.sticky-stack{position:fixed;left:16vw;bottom:39vh;z-index:8;width:80px;height:85px;display:flex;flex-direction:column;align-items:center;}
+.sticky-stack img{width:80px;height:85px;}
+#pullNoteBtn{margin-top:-40px;width:38px;height:38px;background:#fff2;border-radius:50%;font-size:2em;border:2px solid #ffe2;color:#c88524;cursor:pointer;}
+/* - Note Editor -- */
+.note-editor{display:none;position:fixed;left:54vw;bottom:40vh;z-index:16;width:130px;}
+.note-editor.active{display:block;animation:note-fadein .14s;}
+@keyframes note-fadein{from{opacity:0;transform:scale(.77);}to{opacity:1;transform:scale(1);}}
+.note-editor textarea{width:112px;height:100px;background:#fff8b9;border-radius:8px;border:2.4px solid #ebe180;box-shadow:2px 7px 14px #bda31131;font-size:1.01em;color:#232211;padding:11px 9px 8px 9px;}
+.editor-actions{text-align:center;}
+.editor-actions button{margin:0 6px;padding:0.32em 1.1em;background:#ffd7ec;border:2px solid #cfa9be;color:#a13585;border-radius:6px;font-weight:bold;cursor:pointer;font-size:0.95em;}
+/* -- Wall Notes -- */
+.wall-notes{position:fixed;left:0;top:0;width:100vw;height:56vh;pointer-events:none;z-index:19;}
+.wall-note{width:108px;height:98px;background:url('images/sticky-yellow.png') center/cover no-repeat;border-radius:7px;box-shadow:2.5px 17px 38px #33281820;display:flex;align-items:flex-start;color:#39360e;font-size:1.04em;position:absolute;cursor:move;user-select:none;outline:none;z-index:21;animation:wall-float 0.26s;padding:15px 14px 8px 15px;}
+@keyframes wall-float {from {opacity:0;transform:translateY(22px) scale(.7) rotate(-11deg);}to {opacity:1;transform:translateY(0) scale(1);}}
+.wall-note .remove-btn{position:absolute;right:4px;bottom:6px;background:#ffd7ec;color:#b13151;border-radius:7px;border:1px solid #cfa9be;font-size:0.88em;padding:1px 8px;cursor:pointer;}
+/* -- Journal -- */
+#journalOverlay{display:none;position:fixed;z-index:101;left:0;top:0;width:100vw;height:100vh;background:rgba(255,216,247,0.28);}
+#journalOverlay.active{display:block;}
+.notebook{position:absolute;left:50%;top:23vh;transform:translateX(-50%);width:420px;max-width:87vw;height:370px;background:#f7f0e0;border-radius:18px 18px 25px 23px;box-shadow:0 13px 39px #dad1bc;z-index:111;}
+.spiral{position:absolute;left:-26px;top:20px;width:20px;height:320px;background:repeating-linear-gradient(#c2b09a 0 8px,#fff3 8px 16px);}
+.page{padding:37px 27px 17px 48px;width:360px;}
+.page input[type="text"]{font-size:1.21em;font-family:'Georgia',serif;padding:3.5px 7px;width:93%;margin-bottom:10px;border:1.5px solid #eccccc;border-radius:7px;background: #f9f8eb;}
+.page textarea{width:100%;height:183px;padding:8px 5px;font-size:1.04em;line-height:1.5;border:2px solid #ede8cd;border-radius:8px;background:repeating-linear-gradient(#fffbe5 0 22px,#faf5dc 22px 24px);}
+.journal-nav{text-align:center;margin:21px auto 9px auto;}
+.journal-nav button, #closeJournal{margin:0 11px;padding:0.31em 1.33em;background:#ede3fd;border:2px solid #cdafe6;color:#724aaf;border-radius:6px;font-weight:bold;cursor:pointer;font-size:1em;}
+.journal-nav button:hover,#closeJournal:hover{background:#fffbe7;}
+#pageNum{font-family:Georgia,serif;font-size:1.06em;color:#9e5a89;margin:0 6px;}
+#closeJournal{margin-bottom:0;}
+@media (max-width: 600px){
+  .laptop-wrap, .laptop-closed, .laptop-open {width:260px;height:128px;}
+  .notebook{width:82vw;min-width:135px;height:45vw;}
+  .spiral{height:95%;}
+  .page{padding:18px 5vw 7px 10vw;width:62vw;}
 }
