@@ -3,30 +3,61 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Desk</title>
+  <title>My Cozy Desk</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <div class="room">
-    <div class="wall"></div>
-    <div class="desk"></div>
-    <div class="stock-stack" id="stickyStock">
-      <!-- Sticky stock notes, built with JS for realism -->
+  <div class="wall"></div>
+  <div class="table"></div>
+  
+  <!-- Sticky Notes Stack (behind laptop) -->
+  <div class="sticky-stack" id="stickyStack"></div>
+  
+  <!-- Pink Laptop centered on table -->
+  <div class="laptop closed" id="laptop">
+    <!-- SVG pink MacBook, with Apple logo on lid -->
+    <div class="laptop-lid lid-svg">
+      <svg width="350" height="48" viewBox="0 0 350 48">
+        <rect x="0" y="0" width="350" height="48" rx="13" fill="#ffc1da" filter="url(#lidShadow)" />
+        <!-- Apple logo group, centered -->
+        <g>
+          <ellipse cx="175" cy="24" rx="16" ry="18" fill="#fff" opacity=".80"/>
+          <ellipse cx="175" cy="17" rx="3.5" ry="5" fill="#fff" opacity=".80"/>
+        </g>
+        <defs>
+          <filter id="lidShadow" x="0" y="0" width="380" height="60">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#b4726788"/>
+          </filter>
+        </defs>
+      </svg>
     </div>
-    <div class="table-area">
-      <div class="laptop closed" id="laptop">
-        <div class="laptop-lid">
-          <div class="apple-logo"></div>
-        </div>
-        <div class="laptop-base">
-          <div class="screen" id="laptopScreen">
-            <div class="clock" id="clock"></div>
-          </div>
+    <div class="laptop-base">
+      <!-- Screen appears here when open -->
+      <div class="screen" id="screen">
+        <div class="clock">
+          <span id="clockTime"></span>
+          <span id="clockDate"></span>
         </div>
       </div>
-      <div class="notes-area" id="deskNotes"></div>
+      <svg class="base-svg" width="350" height="60" viewBox="0 0 350 60">
+        <!-- Gradient base -->
+        <rect x="0" y="0" width="350" height="60" rx="16" fill="url(#baseGradient)" />
+        <defs>
+          <linearGradient id="baseGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffd1ea"/>
+            <stop offset="100%" stop-color="#ffbadb"/>
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   </div>
+
+  <!-- Desktop (on table) notes area -->
+  <div class="desk-notes" id="deskNotes"></div>
+
+  <!-- Wall notes area (above table) -->
+  <div class="wall-notes" id="wallNotes"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
