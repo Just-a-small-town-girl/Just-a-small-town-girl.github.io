@@ -3,31 +3,37 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Real Desk</title>
+  <title>My Cozy Desk</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <!-- Wall (background) -->
   <div class="wall"></div>
-
-  <!-- Table: photo background from your image 1 -->
   <div class="table"></div>
 
-  <!-- Sticky Note Stack - always visible -->
+  <!-- Sticky Notes Stack -->
   <div class="sticky-stack" id="stickyStack">
-    <img src="images/sticky-stack.png" alt="Sticky note pad" />
-    <button id="pullNoteBtn" title="Pull a note">+</button>
+    <img src="images/sticky-stack.png" alt="Sticky note stack" />
+    <button id="pullNoteBtn" title="Pull a new note">+</button>
   </div>
 
-  <!-- Main Laptop (centered) -->
-  <div class="laptop-wrap">
-    <!-- Closed -->
+  <!-- Laptop -->
+  <div class="laptop-wrap" id="laptopWrap">
     <img class="laptop-closed" id="laptopClosed" src="images/laptop-closed.png" alt="Closed MacBook" />
-    <!-- Open (overlay, hidden by default) -->
     <img class="laptop-open" id="laptopOpen" src="images/laptop-open.png" alt="Open MacBook" />
+    <div id="pomodoroWrap">
+      <div class="pomodoro">
+        <span id="pomMinutes">25</span>:<span id="pomSeconds">00</span>
+      </div>
+      <div class="pom-controls">
+        <button id="pomStart">Start</button>
+        <button id="pomPause">Pause</button>
+        <button id="pomReset">Reset</button>
+        <button id="openJournalBtn">Journal</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Single note editor (when pulled from stack) -->
+  <!-- Single note editor (pulled out note) -->
   <div class="note-editor" id="noteEditor">
     <textarea id="editorInput" maxlength="180"></textarea>
     <div class="editor-actions">
@@ -36,9 +42,26 @@
     </div>
   </div>
 
-  <!-- Wall post-its go here -->
+  <!-- Wall notes -->
   <div class="wall-notes" id="wallNotes"></div>
 
+  <!-- Cozy Notebook (Journal) Overlay -->
+  <div id="journalOverlay">
+    <div class="notebook">
+      <div class="spiral"></div>
+      <div class="page">
+        <input id="journalTitle" type="text" placeholder="Title" maxlength="30" />
+        <textarea id="journalText" placeholder="Type your entry..."></textarea>
+      </div>
+      <div class="journal-nav">
+        <button id="prevPage">&lt;</button>
+        <span id="pageNum"></span>
+        <button id="nextPage">&gt;</button>
+      </div>
+      <button id="closeJournal">Close</button>
+    </div>
+  </div>
+  <audio id="ringSound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae0bb.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
