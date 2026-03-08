@@ -1,275 +1,237 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  min-height: 100vh;
+html, body {
+  height: 100%; width: 100vw; margin: 0; padding: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #ffeefa !important; /* lighter, realistic pastel pink wall */
+  overflow-x: hidden;
+  background: #ffd6ec;
 }
 
-.room {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background: #ffeefa;
-  width: 100vw;
-}
-
+/* Wall: pastel pink as in your reference, to top of table */
 .wall {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 69vh;
-  background: linear-gradient(180deg, #ffeefa 70%, #ffe6f8 100%);
+  background: linear-gradient(180deg, #ffd6ec 60%, #ebe9e1 100%);
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 60vh;
   z-index: 1;
 }
 
-.desk {
+/* Table — photorealistic wood */
+.table {
+  background: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
   position: fixed;
-  left: 0; right: 0; bottom: 0;
-  height: 33vh;
-  min-height: 110px; max-height: 250px;
-  z-index: 3;
-  background:
-    linear-gradient(108deg, #fff6ee 40%, #fbe7c2 90%, #ecd1a1 100%),
-    url("data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2230%22%20viewBox%3D%220%200%2040%2030%22%20fill%3D%22none%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2240%22%20height%3D%2230%22%20fill%3D%22%23efd5ac%22/%3E%3Cellipse%20cx%3D%2210%22%20cy%3D%2215%22%20rx%3D%224%22%20ry%3D%222%22%20fill%3D%22%23e9be83%22%20fill-opacity%3D%220.08%22/%3E%3Cellipse%20cx%3D%2230%22%20cy%3D%2210%22%20rx%3D%225%22%20ry%3D%223%22%20fill%3D%22%23e9be83%22%20fill-opacity%3D%220.07%22/%3E%3C/svg%3E"); /* light wood */
-  border-top: 11px solid #e1b876;
-  box-shadow: 0 -10px 40px 0 #926b2f27;
+  left: 0; right: 0; bottom: 0; height: 46vh;
+  min-height: 267px;
+  max-height: 420px;
+  box-shadow: 0 -14px 35px 0 #3a2708a3;
+  z-index: 2;
+  border-top: 6px solid #cfa584;
 }
 
-.table-area {
-  display: flex;
-  position: absolute;
-  bottom: 11.2vh;
-  left: 0;
-  width: 100vw;
-  padding-left: 6vw;
-  z-index: 10;
-  align-items: flex-end;
-}
-
+/* Laptop center on table */
 .laptop {
-  width: 265px;
-  height: 130px;
-  position: relative;
-  margin-right: 55px;
-  margin-bottom: 6px;
-  transform-origin: bottom center;
-  transition: transform 0.5s cubic-bezier(.59,.35,.32,1.32);
-  z-index: 15;
+  position: fixed;
+  left: 50%; bottom: 46vh;
+  transform: translateX(-50%);
+  transition: box-shadow .23s, transform 0.44s cubic-bezier(.82,.3,.32,1.13);
+  z-index: 6;
+  width: 350px; height: 110px;
+  pointer-events: auto;
   cursor: pointer;
 }
-.laptop .laptop-lid {
-  position: absolute;
-  height: 74px;
-  width: 253px;
-  top: -47px;
-  left: 6px;
-  background: linear-gradient(175deg, #ffb5d0 47%, #fb74a6 98%);
-  border-radius: 18px 18px 41px 41px / 60px 60px 65px 69px;
-  box-shadow: 0 27px 25px 8px #ffb6d079;
-  border: 2.9px solid #f9a9d4;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.7s cubic-bezier(.82,0,.49,1.2);
+.laptop.closed { z-index: 7; }
+.laptop.open { z-index: 16;transform: translateX(-50%) scale(1.08); }
+
+/* Laptop lid - SVG lid group */
+.laptop-lid {
+  position: absolute; left: 0; top: 0; width: 350px; height: 48px;
+  z-index: 8;
+  transition: transform 0.69s cubic-bezier(.6,.38,.39,1.19), opacity .6s;
   transform-origin: bottom center;
 }
-.laptop.closed .laptop-lid {
-  transform: rotateX(0deg) translateY(0px);
-}
-.laptop.open .laptop-lid {
-  transform: rotateX(-90deg) translateY(-75px) scaleY(0.09);
-  opacity: 0.08;
-}
-
-.laptop .apple-logo {
-  width: 28px; height: 35px;
-  background: #fffaf8;
-  border-radius: 49% 57% 59% 58% / 52% 38% 65% 61%;
-  margin-top: 18px;
-  margin-left: 110px;
-  position: absolute;
-  display: block;
-  z-index: 3;
-  box-shadow: 0 2px 4px #ffcef3bb;
-}
-.laptop .apple-logo::before {
-  content: '';
-  position: absolute;
-  left: 11px;
-  top: -9px;
-  width: 6px;
-  height: 8px;
-  border-radius: 70% 100% 47% 70%;
-  background: #ffffffbb;
-  transform: rotate(-10deg);
+.laptop.closed .laptop-lid { transform: rotateX(0deg);}
+.laptop.open .laptop-lid { 
+  transform: rotateX(-94deg) translateY(-82px) scaleY(.12); 
+  opacity: 0.07;
 }
 
 .laptop-base {
-  width: 100%;
-  height: 80px;
-  background: linear-gradient(180deg, #ffdbe4 80%, #ffb9dc 93%, #fb7baf 100%);
-  border-radius: 0 0 14px 14px / 0 0 36px 34px;
-  box-shadow: 0 21px 49px #e858a845, 0 5px 13px 0 #c61d714d;
   position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 2;
-  border-top: 2.6px solid #ffc6e1;
+  left: 0; bottom: 0;
+  width: 350px; height: 65px;
+  z-index: 9;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
 }
 
 .screen {
-  width: 194px;
-  height: 49px;
   position: absolute;
-  top: 14px;
-  left: 29px;
-  background: #292f31;
-  border-radius: 8.7px 9px 10px 11px / 9px 11px 9px 11px;
-  box-shadow: 0 4.5px 23px #fff3;
+  left: 53px; top: 7px;
+  width: 240px; height: 32px;
+  background: #12031aee;
+  border-radius: 5px 5px 9px 11px/7px 11px 9px 11px;
+  box-shadow: 0 0 11px #fff4, 0 1px 10px #710c5a39;
+  z-index: 11;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 7;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.43s cubic-bezier(.7,.12,.23,1.22);
-  font-family: 'Segoe UI Mono', monospace;
-  font-size: 1.3em;
-  color: #e8f5ff;
+  align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .53s cubic-bezier(.7,.12,.23,1.22);
 }
-.laptop.open .screen { opacity: 1; }
+.laptop.open .screen { opacity: 1; pointer-events: auto; }
 
+/* Clock on screen */
 .clock {
   width: 100%;
-  text-align: center;
-  letter-spacing: .05em;
-  font-size: 1.28em;
+  color: #bcf4f6;
   font-family: "JetBrains Mono", "Fira Mono", "Segoe UI Mono", monospace;
-  color: #ddf0f6;
-  text-shadow: 0 1px 7px #1e4e5aa4;
-  padding: 8px 0;
+  font-size: 1.22em;
+  letter-spacing: .05em;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
+#clockDate { color: #f8dcff; font-size: .68em; letter-spacing: .03em; }
 
-.stock-stack {
-  position: absolute;
-  left: 9vw;
-  bottom: 35vh;
-  z-index: 12;
-  height: 75px; width: 54px;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  pointer-events: auto;
-}
-.stock-sticky {
-  width: 54px;
-  height: 58px;
-  background: #caf0f8;
-  border-radius: 6px 14px 13px 7px / 15px 11px 15px 10px;
-  border: 2.2px solid #aad7e7;
-  box-shadow: 2px 10px 18px #bde7f253;
-  display: block;
-  position: absolute;
-  left: 0;
-  cursor: grab;
-  user-select: none;
-  opacity: 0.93;
-  transition: box-shadow .19s, transform 0.25s;
-  will-change: transform;
-}
-.stock-sticky:nth-child(1) { z-index: 4; transform: rotate(2.4deg) translateY(-6px);}
-.stock-sticky:nth-child(2) { z-index: 3; transform: rotate(0.6deg) translateY(12px);}
-.stock-sticky:nth-child(3) { z-index: 2; transform: rotate(-1.8deg) translateY(23px);}
-.stock-sticky:nth-child(4) { z-index: 1; transform: rotate(-2.7deg) translateY(34px); opacity:.73;}
-.stock-sticky:hover { box-shadow: 5px 19px 38px #7ccbde33; }
-
-.notes-area {
-  display: flex;
-  gap: 18px;
-  align-items: flex-end;
-  min-height: 45px;
-  z-index: 18;
-  position: relative;
-}
-
-.sticky-note {
-  width: 90px;
-  height: 80px;
-  background: #caf0f8;
-  border-radius: 9px 16px 22px 13px / 14px 15px 21px 15px;
-  box-shadow: 2px 9px 24px #6eb8de2c;
-  border: 2.5px solid #aad4e7;
+/* Sticky Stack (post-it stack, next to laptop) */
+.sticky-stack {
+  position: fixed;
+  left: 48vw; bottom: 47vh;
+  z-index: 10;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  width: 68px; height: 68px;
+  /*offset a bit to appear *behind* laptop*/
+  transform: translateX(-170px);
+}
+.stack-note {
+  width: 62px; height: 60px;
+  position: absolute;
+  left: 0; top: 0;
+  border-radius: 8px;
+  box-shadow: 1.5px 5px 13px #1112;
+  border: 1.7px solid #e2e2e2;
+  box-sizing: border-box;
+  cursor: grab;
+  will-change: transform;
+  transition: box-shadow .16s, transform .25s;
+}
+.stack-note:hover { box-shadow: 2.5px 17px 32px #1114; transform: scale(1.09) rotate(-2deg);}
+.stack-note-0 { z-index: 5; transform: rotate(-2deg) translateY(2px);}
+.stack-note-1 { z-index: 4; transform: rotate(7deg) translateY(9px);}
+.stack-note-2 { z-index: 3; transform: rotate(-8deg) translateY(17px);}
+.stack-note-3 { z-index: 2; transform: rotate(5deg) translateY(24px); }
+.stack-note-4 { z-index: 1; transform: rotate(11deg) translateY(28px); opacity:.59;}
+/* random colors added per element */
+
+/* Desk Notes (in front of laptop, for editing) */
+.desk-notes {
+  position: fixed;
+  left: 0; bottom: 46vh;
+  width: 100vw; height: 110px;
+  z-index: 12;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 35px;
+  pointer-events: none;
+}
+.desk-note {
+  width: 106px; height: 98px;
+  background: #fff8f4;
+  border-radius: 8px;
+  border: 2px solid #cfcfcf;
+  box-shadow: 2px 7px 16px #84531130;
+  display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 13px 9px 8px 13px;
-  font-size: 1.07rem;
-  outline: none;
-  color: #278;
+  padding: 13px 8px 11px 15px;
+  font-size: 1.09rem;
+  color: #3c3c3c;
   font-family: 'Segoe UI', Arial, sans-serif;
-  cursor: grab;
-  transition: box-shadow .15s, transform .19s;
+  transition: box-shadow .15s, transform .22s;
   position: relative;
-  z-index: 1;
+  z-index: 13;
+  cursor: grab;
+  pointer-events: auto;
   user-select: none;
   overflow: hidden;
 }
-.sticky-note .sticky-peel {
-  position: absolute;
-  top: 3px; right: 7px;
-  font-size: 1.22em;
-  background: #e1eef7b8;
-  border-radius: 19%;
-  border: 1px solid #cdf;
-  padding: 0.06em 0.16em;
-  cursor: pointer;
-  color: #78afd1;
-  z-index: 3;
-  transition: background .18s;
-}
-.sticky-note .sticky-peel:hover {
-  background: #eef6ffef;
-}
-
-.sticky-note.editing {
-  z-index: 12;
-  box-shadow: 0 10px 37px #7dbffe2a, 0 2px 12px #81effd19;
-  transform: scale(1.13) rotate(-2deg);
+.desk-note.editing {
+  z-index: 21;
+  box-shadow: 0 10px 27px #8887, 0 2px 8px #9ef7ad20;
+  transform: scale(1.11) rotate(-3deg);
   cursor: text;
 }
-
-.sticky-note textarea {
+.desk-note textarea {
   width: 99%;
-  height: 65px;
+  height: 67px;
   font-size: 1.08rem;
-  background: #caf0f8;
-  color: #278;
+  background: transparent;
+  color: #1b3347;
   border: none;
   outline: none;
   resize: none;
   font-family: inherit;
-  border-radius: 6px;
-  padding: 8px 3.5px 2px 2.5px;
+  border-radius: 7px;
+  padding: 0;
+  margin: 0;
 }
 
-@media (max-width:950px) {
-  .table-area { flex-direction: column; align-items: center; padding: 0;}
-  .laptop { margin-right: 0; margin-bottom: 27px;}
-  .stock-stack { left: 2vw;}
+/* Peel button (move to wall) */
+.desk-note .peel-btn {
+  position: absolute; bottom: 9px; right: 7px;
+  font-size: 1.34em;
+  background: #fff9;
+  border: 1.2px solid #dedede;
+  border-radius: 50%; padding: 1px 7px 2px 7px;
+  cursor: pointer;
+  color: #f77b9c;
+  z-index: 21;
+  box-shadow: 0 1px 2px #fff7;
 }
 
-@media (max-width: 650px) {
-  .laptop { width: 158px; height: 77px;}
-  .laptop .laptop-lid { width: 99%; height: 39px; }
-  .laptop-base { height: 39px; }
-  .screen { width:110px; height:22px; left:12px; font-size: 1em;}
-  .sticky-note, .stock-sticky { width:63px;height:38px; font-size:0.84em; min-width:48px;}
-  .stock-stack {height:36px; width:34px;}
+/* Wall Notes (place notes freely above table) */
+.wall-notes {
+  position: fixed; left: 0; top: 0; width: 100vw; height: 56vh;
+  pointer-events: none;
+  z-index: 19;
+}
+/* Each wall note with pin, drop shadow, and colored */
+.wall-note {
+  width: 108px; height: 100px;
+  background: #fffbe4;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 2.5px 14px 29px #34281840;
+  display: flex; align-items: flex-start; padding: 17px 9px 9px 15px;
+  color: #363636;
+  font-size: 1.03em;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  position: absolute;
+  cursor: move;
+  user-select: none;
+  outline: none;
+  animation: wall-float 0.33s;
+}
+/* Random tilt added per-instance */
+@keyframes wall-float {
+  from { opacity: 0; transform: translateY(30px) scale(0.7) rotate(-7deg);}
+  to {opacity:1; transform:translateY(0) scale(1);}
+}
+.wall-note .pin {
+  position: absolute;
+  top: -7px; left: 48px;
+  width: 15px; height: 16px;
+  z-index: 20;
+}
+
+/* Pin colors: generated by JS as SVG for realism */
+.wall-note .pin svg {display:block;}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .laptop, .laptop-lid, .laptop-base, .base-svg { width: 240px !important;}
+  .screen { left: 25px; width: 133px; }
+  .desk-note, .wall-note { width: 67px; height: 61px; font-size: .91em; }
+  .sticky-stack { width: 44px; height:45px; transform: translateX(-80px);}
 }
