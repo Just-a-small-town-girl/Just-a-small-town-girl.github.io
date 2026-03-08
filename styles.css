@@ -1,237 +1,134 @@
 html, body {
-  height: 100%; width: 100vw; margin: 0; padding: 0;
+  margin: 0; padding: 0; width: 100vw; height: 100%;
   font-family: 'Segoe UI', Arial, sans-serif;
+  background: #ffd7ec;
   overflow-x: hidden;
-  background: #ffd6ec;
 }
 
-/* Wall: pastel pink as in your reference, to top of table */
 .wall {
-  background: linear-gradient(180deg, #ffd6ec 60%, #ebe9e1 100%);
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 60vh;
+  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
   z-index: 1;
+  background: linear-gradient(180deg, #ffd7ec 70%, #fdedd7 100%);
 }
 
-/* Table — photorealistic wood */
 .table {
-  background: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
-  position: fixed;
-  left: 0; right: 0; bottom: 0; height: 46vh;
-  min-height: 267px;
-  max-height: 420px;
-  box-shadow: 0 -14px 35px 0 #3a2708a3;
+  position: fixed; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 45vh;
   z-index: 2;
-  border-top: 6px solid #cfa584;
+  background: url('images/table.jpg') center/cover no-repeat;
+  min-height: 240px; border-top: 3px solid #ceb394;
 }
 
-/* Laptop center on table */
-.laptop {
-  position: fixed;
-  left: 50%; bottom: 46vh;
+.laptop-wrap {
+  position: fixed; left: 50%; bottom: 27vh;
+  width: 460px; height: 220px;
   transform: translateX(-50%);
-  transition: box-shadow .23s, transform 0.44s cubic-bezier(.82,.3,.32,1.13);
-  z-index: 6;
-  width: 350px; height: 110px;
-  pointer-events: auto;
-  cursor: pointer;
-}
-.laptop.closed { z-index: 7; }
-.laptop.open { z-index: 16;transform: translateX(-50%) scale(1.08); }
-
-/* Laptop lid - SVG lid group */
-.laptop-lid {
-  position: absolute; left: 0; top: 0; width: 350px; height: 48px;
-  z-index: 8;
-  transition: transform 0.69s cubic-bezier(.6,.38,.39,1.19), opacity .6s;
-  transform-origin: bottom center;
-}
-.laptop.closed .laptop-lid { transform: rotateX(0deg);}
-.laptop.open .laptop-lid { 
-  transform: rotateX(-94deg) translateY(-82px) scaleY(.12); 
-  opacity: 0.07;
-}
-
-.laptop-base {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 350px; height: 65px;
-  z-index: 9;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.screen {
-  position: absolute;
-  left: 53px; top: 7px;
-  width: 240px; height: 32px;
-  background: #12031aee;
-  border-radius: 5px 5px 9px 11px/7px 11px 9px 11px;
-  box-shadow: 0 0 11px #fff4, 0 1px 10px #710c5a39;
-  z-index: 11;
-  display: flex;
-  align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .53s cubic-bezier(.7,.12,.23,1.22);
-}
-.laptop.open .screen { opacity: 1; pointer-events: auto; }
-
-/* Clock on screen */
-.clock {
-  width: 100%;
-  color: #bcf4f6;
-  font-family: "JetBrains Mono", "Fira Mono", "Segoe UI Mono", monospace;
-  font-size: 1.22em;
-  letter-spacing: .05em;
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-#clockDate { color: #f8dcff; font-size: .68em; letter-spacing: .03em; }
-
-/* Sticky Stack (post-it stack, next to laptop) */
-.sticky-stack {
-  position: fixed;
-  left: 48vw; bottom: 47vh;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: auto;
-  width: 68px; height: 68px;
-  /*offset a bit to appear *behind* laptop*/
-  transform: translateX(-170px);
-}
-.stack-note {
-  width: 62px; height: 60px;
-  position: absolute;
-  left: 0; top: 0;
-  border-radius: 8px;
-  box-shadow: 1.5px 5px 13px #1112;
-  border: 1.7px solid #e2e2e2;
-  box-sizing: border-box;
-  cursor: grab;
-  will-change: transform;
-  transition: box-shadow .16s, transform .25s;
-}
-.stack-note:hover { box-shadow: 2.5px 17px 32px #1114; transform: scale(1.09) rotate(-2deg);}
-.stack-note-0 { z-index: 5; transform: rotate(-2deg) translateY(2px);}
-.stack-note-1 { z-index: 4; transform: rotate(7deg) translateY(9px);}
-.stack-note-2 { z-index: 3; transform: rotate(-8deg) translateY(17px);}
-.stack-note-3 { z-index: 2; transform: rotate(5deg) translateY(24px); }
-.stack-note-4 { z-index: 1; transform: rotate(11deg) translateY(28px); opacity:.59;}
-/* random colors added per element */
-
-/* Desk Notes (in front of laptop, for editing) */
-.desk-notes {
-  position: fixed;
-  left: 0; bottom: 46vh;
-  width: 100vw; height: 110px;
-  z-index: 12;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 35px;
+  z-index: 5;
+  display: flex; align-items: center; justify-content: center;
   pointer-events: none;
 }
-.desk-note {
-  width: 106px; height: 98px;
-  background: #fff8f4;
-  border-radius: 8px;
-  border: 2px solid #cfcfcf;
-  box-shadow: 2px 7px 16px #84531130;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 13px 8px 11px 15px;
-  font-size: 1.09rem;
-  color: #3c3c3c;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  transition: box-shadow .15s, transform .22s;
-  position: relative;
-  z-index: 13;
-  cursor: grab;
+.laptop-closed, .laptop-open {
+  width: 460px; height: 220px; position: absolute; left: 0; top: 0; user-select:none;
+  transition: opacity .34s;
   pointer-events: auto;
-  user-select: none;
-  overflow: hidden;
+  box-shadow: 0 9px 23px #232;
+  border-radius: 15px 15px 20px 25px;
 }
-.desk-note.editing {
-  z-index: 21;
-  box-shadow: 0 10px 27px #8887, 0 2px 8px #9ef7ad20;
-  transform: scale(1.11) rotate(-3deg);
-  cursor: text;
-}
-.desk-note textarea {
-  width: 99%;
-  height: 67px;
-  font-size: 1.08rem;
-  background: transparent;
-  color: #1b3347;
-  border: none;
-  outline: none;
-  resize: none;
-  font-family: inherit;
-  border-radius: 7px;
-  padding: 0;
-  margin: 0;
-}
+.laptop-closed { opacity: 1; z-index: 8; cursor: pointer; }
+.laptop-open   { opacity: 0; z-index: 9; pointer-events: none; }
+.laptop-open.active { opacity: 1; pointer-events: auto; }
+.laptop-closed.inactive { opacity: 0; pointer-events:none; }
 
-/* Peel button (move to wall) */
-.desk-note .peel-btn {
-  position: absolute; bottom: 9px; right: 7px;
-  font-size: 1.34em;
-  background: #fff9;
-  border: 1.2px solid #dedede;
-  border-radius: 50%; padding: 1px 7px 2px 7px;
-  cursor: pointer;
-  color: #f77b9c;
-  z-index: 21;
-  box-shadow: 0 1px 2px #fff7;
+.sticky-stack {
+  position: fixed; left: 16vw; bottom: 39vh;
+  z-index: 8;
+  width:80px; height:85px;
+  display: flex; flex-direction: column; align-items: center;
 }
+.sticky-stack img {
+  width: 80px; height: 85px; display: block;
+  filter: drop-shadow(0 5px 10px #8769);
+}
+#pullNoteBtn {
+  margin-top: -40px;
+  width: 38px; height: 38px;
+  background: #fff2;
+  border-radius: 50%; font-size: 2em;
+  border: 2px solid #ffe2;
+  color: #c88524; cursor:pointer; z-index:2;
+  box-shadow: 0 5px 11px #8a1c  ;
+  transition: background .12s;
+}
+#pullNoteBtn:hover {background: #ffe6d6;}
+/* Only one note editor at once */
+.note-editor {
+  display: none;
+  position: fixed;
+  left: 52vw; bottom: 40vh;
+  z-index: 16;
+  width: 130px; background: none; outline:none;
+}
+.note-editor.active {
+  display: block;
+  animation: note-fadein .14s;
+ }
+@keyframes note-fadein { from { opacity:0; transform:scale(.7);} to { opacity:1; transform:scale(1);} }
 
-/* Wall Notes (place notes freely above table) */
+.note-editor textarea {
+  width: 115px; height: 100px;
+  background: #fff768;
+  border-radius: 8px;
+  border: 2.4px solid #e1d800;
+  box-shadow: 2px 7px 14px #bda31130;
+  font-size: 1.01em; color: #232211;
+  padding: 12px 10px 5px 10px;
+  resize:none;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+.editor-actions {text-align:center;}
+.editor-actions button {
+  margin: 0 6px; padding: 0.32em 1.1em;
+  background: #ffd7ec;
+  border: 2px solid #cfa9be;
+  color: #a13585; border-radius: 6px;
+  font-weight: bold; cursor:pointer;
+  font-size: 0.95em;
+}
+.editor-actions button:hover {background:#ffeffa;color:#c82095;}
+
 .wall-notes {
   position: fixed; left: 0; top: 0; width: 100vw; height: 56vh;
   pointer-events: none;
   z-index: 19;
 }
-/* Each wall note with pin, drop shadow, and colored */
 .wall-note {
-  width: 108px; height: 100px;
-  background: #fffbe4;
-  border-radius: 8px;
-  border: 2px solid #e0e0e0;
-  box-shadow: 2.5px 14px 29px #34281840;
-  display: flex; align-items: flex-start; padding: 17px 9px 9px 15px;
-  color: #363636;
-  font-size: 1.03em;
+  width: 120px; height: 112px;
+  background: url('images/sticky-yellow.png') center/cover no-repeat;
+  border-radius: 7px;
+  box-shadow: 2.5px 17px 38px #33281820;
+  display: flex; align-items: flex-start;
+  color: #39360e; font-size: 1.04em;
   font-family: 'Segoe UI', Arial, sans-serif;
-  position: absolute;
-  cursor: move;
-  user-select: none;
-  outline: none;
-  animation: wall-float 0.33s;
+  position: absolute; left: 160px; top: 44px;
+  cursor: move; user-select: none; outline: none; z-index: 21;
+  animation: wall-float 0.26s;
+  padding: 14px 14px 8px 16px;
 }
-/* Random tilt added per-instance */
 @keyframes wall-float {
-  from { opacity: 0; transform: translateY(30px) scale(0.7) rotate(-7deg);}
-  to {opacity:1; transform:translateY(0) scale(1);}
+  from { opacity: 0; transform: translateY(40px) scale(0.7) rotate(-11deg);}
+  to {opacity: 1; transform:translateY(0) scale(1);}
 }
-.wall-note .pin {
-  position: absolute;
-  top: -7px; left: 48px;
-  width: 15px; height: 16px;
-  z-index: 20;
+.wall-note .remove-btn {
+  position: absolute; right: 4px; bottom: 6px;
+  background: #ffd7ec; color: #b13151; border-radius:7px;
+  border: 1px solid #cfa9be; font-size: 0.88em;
+  padding: 1px 8px;
+  cursor: pointer;
 }
-
-/* Pin colors: generated by JS as SVG for realism */
-.wall-note .pin svg {display:block;}
-
-/* Responsive adjustments */
-@media (max-width: 700px) {
-  .laptop, .laptop-lid, .laptop-base, .base-svg { width: 240px !important;}
-  .screen { left: 25px; width: 133px; }
-  .desk-note, .wall-note { width: 67px; height: 61px; font-size: .91em; }
-  .sticky-stack { width: 44px; height:45px; transform: translateX(-80px);}
+@media (max-width: 900px){
+  .laptop-wrap, .laptop-closed, .laptop-open { width:290px;height:138px;}
+  .wall-note, .note-editor textarea {width:88px;height:78px;}
+  .wall-note { font-size:0.85em;}
+  .sticky-stack {left:4vw;}
 }
